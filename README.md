@@ -4,7 +4,7 @@
 
 # canvas-studio
 
-**🎨 Canvas Studio - Design tool for everyone. Create graphics, presentations, social media posts. Better than Canva, free forever.**
+**🎨 Canvas Studio - Design tool for everyone. Create graphics, presentations, social media posts. Better than Canva, proprietary.**
 
 [![BlackRoad OS](https://img.shields.io/badge/BlackRoad_OS-Pave_Tomorrow-FF2255?style=for-the-badge&labelColor=000000)](https://blackroad.io)
 [![License](https://img.shields.io/badge/License-Proprietary-FF6B2B?style=for-the-badge&labelColor=000000)](./LICENSE)
@@ -20,7 +20,7 @@
 
 ## Overview
 
-🎨 Canvas Studio - Design tool for everyone. Create graphics, presentations, social media posts. Better than Canva, free forever.
+🎨 Canvas Studio - Design tool for everyone. Create graphics, presentations, social media posts. Better than Canva, proprietary.
 
 ## License
 
