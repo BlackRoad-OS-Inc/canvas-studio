@@ -3,635 +3,1460 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FastLane - Fast Design Without the Designer Price Tag</title>
-    <meta name="description" content="Create stunning graphics, presentations, and social media posts for free. No subscriptions, no paywalls. Just beautiful design tools for everyone.">
+    <title>Canvas Studio — Design Without Design School</title>
+    <meta name="description" content="Canvas Studio: Visual editor, templates, brand kit tools, and export to PNG/SVG/PDF. Collaborative design for everyone. Built by BlackRoad OS.">
+    <meta name="keywords" content="design tool, visual editor, templates, brand kit, PNG, SVG, PDF, collaborative design, BlackRoad">
+    <meta property="og:title" content="Canvas Studio — Design Without Design School">
+    <meta property="og:description" content="Visual editor with templates, brand kits, and multi-format export. Collaborative design made simple.">
+    <meta property="og:type" content="website">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --black: #000000;
-            --white: #FFFFFF;
-            --amber: #F5A623;
-            --hot-pink: #FF1D6C;
-            --electric-blue: #2979FF;
-            --violet: #9C27B0;
-            --space-xs: 8px;
-            --space-sm: 13px;
-            --space-md: 21px;
-            --space-lg: 34px;
-            --space-xl: 55px;
-            --space-2xl: 89px;
-            --space-3xl: 144px;
-            --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #000;
+            --surface: #0a0a0a;
+            --border: #1a1a1a;
+            --text: #e0e0e0;
+            --text-muted: #888;
+            --gradient: linear-gradient(90deg, #FF6B2B, #FF2255, #CC00AA, #8844FF, #4488FF, #00D4FF);
+            --font-heading: 'Space Grotesk', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        html { scroll-behavior: smooth; }
 
         body {
-            background: var(--black);
-            color: var(--white);
-            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
-            line-height: 1.618;
-            -webkit-font-smoothing: antialiased;
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font-heading);
+            line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        .grid-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image:
-                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-            background-size: 55px 55px;
-            animation: grid-move 20s linear infinite;
-            z-index: 0;
+        a { color: inherit; text-decoration: none; }
+
+        .gradient-text {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        @keyframes grid-move {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(55px, 55px); }
+        .gradient-line {
+            height: 2px;
+            background: var(--gradient);
+            border: none;
         }
 
+        /* Navigation */
         nav {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(20px);
-            padding: var(--space-md) var(--space-xl);
-            z-index: 1000;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        nav .container {
-            max-width: 1400px;
-            margin: 0 auto;
+            z-index: 100;
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background: rgba(0, 0, 0, 0.9);
+            border-bottom: 1px solid var(--border);
         }
 
-        .logo {
-            font-size: 28px;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--amber), var(--hot-pink), var(--violet));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .btn {
-            padding: var(--space-sm) var(--space-lg);
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s var(--ease);
-            display: inline-block;
-        }
-
-        .btn-primary {
-            background: var(--hot-pink);
-            color: var(--white);
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(255, 29, 108, 0.4);
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 var(--space-xl);
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero {
-            padding: calc(var(--space-3xl) * 2) 0 var(--space-3xl);
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-size: 72px;
-            font-weight: 900;
-            margin-bottom: var(--space-md);
-            line-height: 1.1;
-        }
-
-        .gradient-text {
-            background: linear-gradient(135deg, var(--amber) 0%, var(--hot-pink) 38.2%, var(--violet) 61.8%, var(--electric-blue) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            font-size: 24px;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: var(--space-xl);
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .free-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--amber), var(--hot-pink));
-            color: var(--white);
-            padding: var(--space-sm) var(--space-xl);
-            border-radius: 50px;
-            font-size: 20px;
-            font-weight: 800;
-            margin-bottom: var(--space-xl);
-            box-shadow: 0 8px 30px rgba(255, 29, 108, 0.3);
-        }
-
-        /* Canvas Editor Demo */
-        .canvas-demo {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 24px;
-            padding: var(--space-lg);
-            margin: var(--space-3xl) 0;
-            min-height: 600px;
-            display: flex;
-            gap: var(--space-md);
-        }
-
-        .canvas-sidebar {
-            width: 250px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            padding: var(--space-md);
-        }
-
-        .tool-category {
-            margin-bottom: var(--space-lg);
-        }
-
-        .tool-category h3 {
-            font-size: 16px;
-            margin-bottom: var(--space-sm);
-            color: var(--hot-pink);
-        }
-
-        .tool-btn {
-            display: block;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--white);
-            padding: var(--space-sm);
-            margin-bottom: var(--space-xs);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s var(--ease);
-        }
-
-        .tool-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: var(--hot-pink);
-        }
-
-        .canvas-workspace {
-            flex: 1;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        .canvas-artboard {
-            width: 600px;
-            height: 400px;
-            background: var(--white);
-            border-radius: 8px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--black);
-            font-size: 24px;
+        .nav-logo {
+            font-family: var(--font-mono);
+            font-size: 1.2rem;
             font-weight: 700;
         }
 
-        .templates-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: var(--space-lg);
-            margin: var(--space-3xl) 0;
-        }
-
-        .template-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            overflow: hidden;
-            transition: all 0.3s var(--ease);
-            cursor: pointer;
-        }
-
-        .template-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--hot-pink);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-        }
-
-        .template-preview {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(135deg, var(--amber) 0%, var(--hot-pink) 38.2%, var(--violet) 61.8%, var(--electric-blue) 100%);
+        .nav-links {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 48px;
-        }
-
-        .template-info {
-            padding: var(--space-md);
-        }
-
-        .template-info h3 {
-            font-size: 20px;
-            margin-bottom: var(--space-xs);
-        }
-
-        .template-info p {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 14px;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: var(--space-lg);
-            margin: var(--space-3xl) 0;
-        }
-
-        .feature-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            padding: var(--space-lg);
-            transition: all 0.3s var(--ease);
-        }
-
-        .feature-card:hover {
-            background: rgba(255, 255, 255, 0.06);
-            transform: translateY(-4px);
-            border-color: var(--hot-pink);
-        }
-
-        .feature-icon {
-            font-size: 48px;
-            margin-bottom: var(--space-md);
-        }
-
-        .feature-card h3 {
-            font-size: 24px;
-            margin-bottom: var(--space-sm);
-            color: var(--hot-pink);
-        }
-
-        .feature-card p {
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .comparison-table {
-            margin: var(--space-3xl) 0;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 24px;
-            padding: var(--space-xl);
-        }
-
-        .comparison-table h2 {
-            text-align: center;
-            font-size: 48px;
-            margin-bottom: var(--space-xl);
-        }
-
-        .comparison-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: var(--space-lg);
-        }
-
-        .comparison-col {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            padding: var(--space-lg);
-        }
-
-        .comparison-col.highlight {
-            border: 2px solid var(--hot-pink);
-            background: rgba(255, 29, 108, 0.05);
-        }
-
-        .comparison-col h3 {
-            font-size: 24px;
-            margin-bottom: var(--space-md);
-        }
-
-        .comparison-col .price {
-            font-size: 36px;
-            font-weight: 800;
-            color: var(--hot-pink);
-            margin-bottom: var(--space-md);
-        }
-
-        .comparison-col ul {
+            gap: 2rem;
             list-style: none;
         }
 
-        .comparison-col li {
-            padding: var(--space-xs) 0;
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 14px;
+        .nav-links a {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            transition: color 0.3s;
         }
 
-        .comparison-col li.yes::before {
-            content: '✓';
-            color: var(--hot-pink);
-            margin-right: var(--space-xs);
-            font-weight: bold;
+        .nav-links a:hover { color: var(--text); }
+
+        .nav-cta {
+            padding: 0.5rem 1.5rem;
+            background: var(--gradient);
+            border: none;
+            border-radius: 6px;
+            color: #000;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
         }
 
-        .comparison-col li.no::before {
-            content: '✗';
-            color: rgba(255, 255, 255, 0.3);
-            margin-right: var(--space-xs);
-        }
-
-        .cta-section {
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            padding: var(--space-3xl) 0;
+            padding: 8rem 2rem 4rem;
+            position: relative;
         }
 
-        .cta-section h2 {
-            font-size: 56px;
-            margin-bottom: var(--space-md);
+        .grid-bg {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
         }
 
-        .cta-section p {
-            font-size: 24px;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: var(--space-xl);
+        .hero-badge {
+            display: inline-block;
+            padding: 0.4rem 1.2rem;
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
         }
 
-        footer {
+        .hero h1 {
+            font-size: clamp(2.5rem, 7vw, 5.5rem);
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+            max-width: 900px;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.35rem);
+            color: var(--text-muted);
+            max-width: 650px;
+            margin-bottom: 3rem;
+            line-height: 1.7;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            padding: 0.85rem 2.5rem;
+            background: var(--gradient);
+            border: none;
+            border-radius: 8px;
+            color: #000;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: opacity 0.3s, transform 0.2s;
+        }
+
+        .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+
+        .btn-secondary {
+            padding: 0.85rem 2.5rem;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-family: var(--font-heading);
+            font-weight: 500;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+
+        .btn-secondary:hover { border-color: #444; }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            margin-top: 4rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .stat-value {
+            font-family: var(--font-mono);
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        /* Sections */
+        section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+            line-height: 1.15;
+        }
+
+        .section-desc {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 650px;
+            margin-bottom: 3rem;
+            line-height: 1.7;
+        }
+
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: border-color 0.3s;
+        }
+
+        .card:hover { border-color: #333; }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient);
+            border-radius: 10px;
+            margin-bottom: 1.25rem;
+            font-size: 1.4rem;
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* Editor Preview */
+        .editor-preview {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 3rem 0;
+        }
+
+        .editor-toolbar {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 1.25rem;
+            border-bottom: 1px solid var(--border);
+            overflow-x: auto;
+        }
+
+        .toolbar-btn {
+            padding: 0.4rem 0.8rem;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: border-color 0.3s, color 0.3s;
+        }
+
+        .toolbar-btn:hover { border-color: #444; color: var(--text); }
+        .toolbar-btn.active { border-color: #FF6B2B; color: #FF6B2B; }
+
+        .editor-canvas {
+            display: grid;
+            grid-template-columns: 220px 1fr 260px;
+            min-height: 400px;
+        }
+
+        @media (max-width: 900px) {
+            .editor-canvas { grid-template-columns: 1fr; }
+            .editor-sidebar, .editor-properties { display: none; }
+        }
+
+        .editor-sidebar {
+            border-right: 1px solid var(--border);
+            padding: 1rem;
+        }
+
+        .sidebar-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .sidebar-title {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.75rem;
+        }
+
+        .layer-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            margin-bottom: 0.25rem;
+        }
+
+        .layer-item:hover { background: rgba(255,255,255,0.03); }
+        .layer-item.selected { background: rgba(255,107,43,0.1); color: #FF6B2B; }
+
+        .editor-main {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            background: #050505;
+        }
+
+        .canvas-area {
+            width: 100%;
+            max-width: 500px;
+            aspect-ratio: 16/10;
+            background: var(--gradient);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #000;
+            letter-spacing: -0.02em;
+        }
+
+        .editor-properties {
+            border-left: 1px solid var(--border);
+            padding: 1rem;
+        }
+
+        .prop-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .prop-label {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .prop-input {
+            width: 100%;
+            padding: 0.4rem 0.6rem;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            color: var(--text);
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .prop-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+        }
+
+        .color-swatches {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+        }
+
+        .swatch {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+            cursor: pointer;
+        }
+
+        /* Templates */
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .template-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: border-color 0.3s;
+            cursor: pointer;
+        }
+
+        .template-card:hover { border-color: #333; }
+
+        .template-preview {
+            aspect-ratio: 4/3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .template-info {
+            padding: 1rem;
+        }
+
+        .template-info h4 {
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .template-info p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Export Formats */
+        .export-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .export-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
             text-align: center;
-            padding: var(--space-xl) 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            color: rgba(255, 255, 255, 0.5);
+            transition: border-color 0.3s;
+        }
+
+        .export-card:hover { border-color: #333; }
+
+        .export-format {
+            font-family: var(--font-mono);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .export-card p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* Brand Kit */
+        .brandkit-demo {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
         }
 
         @media (max-width: 768px) {
-            .hero h1 { font-size: 42px; }
-            .canvas-demo { flex-direction: column; }
-            .comparison-grid { grid-template-columns: 1fr; }
+            .brandkit-demo { grid-template-columns: 1fr; }
+        }
+
+        .brandkit-panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+        }
+
+        .brandkit-panel h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .color-palette {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .palette-chip {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .palette-chip-label {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 0.25rem;
+        }
+
+        .font-sample {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+
+        .font-name {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .font-preview {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .font-preview-mono {
+            font-family: var(--font-mono);
+            font-size: 1.2rem;
+        }
+
+        /* Collaboration */
+        .collab-features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .collab-features { grid-template-columns: 1fr; }
+        }
+
+        .collab-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: border-color 0.3s;
+        }
+
+        .collab-card:hover { border-color: #333; }
+
+        .collab-step {
+            font-family: var(--font-mono);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .collab-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .collab-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Pricing */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .pricing-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2.5rem;
+            position: relative;
+            transition: border-color 0.3s;
+        }
+
+        .pricing-card:hover { border-color: #333; }
+
+        .pricing-card.featured { border-color: #444; }
+
+        .pricing-card.featured::after {
+            content: 'MOST POPULAR';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 0.3rem 1rem;
+            background: var(--gradient);
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: #000;
+            letter-spacing: 0.05em;
+        }
+
+        .pricing-tier {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .pricing-period {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .pricing-features {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features li {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .pricing-features li::before {
+            content: '+';
+            font-family: var(--font-mono);
+            color: #27c93f;
+            font-weight: 700;
+        }
+
+        .pricing-btn {
+            display: block;
+            width: 100%;
+            padding: 0.75rem;
+            text-align: center;
+            border-radius: 8px;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .pricing-btn-primary {
+            background: var(--gradient);
+            color: #000;
+            border: none;
+        }
+
+        .pricing-btn-secondary {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        /* Workflow */
+        .workflow-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        @media (max-width: 900px) {
+            .workflow-steps { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 500px) {
+            .workflow-steps { grid-template-columns: 1fr; }
+        }
+
+        .workflow-step {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .workflow-num {
+            font-family: var(--font-mono);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .workflow-step h4 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .workflow-step p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* Testimonials */
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .testimonial-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+        }
+
+        .testimonial-text {
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+            color: var(--text-muted);
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .testimonial-role {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* CTA */
+        .cta-section {
+            text-align: center;
+            padding: 8rem 2rem;
+        }
+
+        .cta-section h2 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 550px;
+            margin: 0 auto 2.5rem;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 3rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        .footer-brand {
+            font-family: var(--font-mono);
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand-desc {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .footer-col h4 {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            color: var(--text-muted);
+        }
+
+        .footer-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .footer-col a {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            transition: color 0.3s;
+        }
+
+        .footer-col a:hover { color: var(--text); }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-bottom-links a {
+            color: var(--text-muted);
+            transition: color 0.3s;
+        }
+
+        .footer-bottom-links a:hover { color: var(--text); }
+
+        @media (max-width: 640px) {
+            .nav-links { display: none; }
+            .footer-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-    <div class="grid-bg"></div>
-
+    <!-- Navigation -->
     <nav>
-        <div class="container">
-            <div class="logo">🎨 FastLane</div>
-            <a href="#editor" class="btn btn-primary">Start Creating Free →</a>
-        </div>
+        <a href="#" class="nav-logo"><span class="gradient-text">Canvas Studio</span></a>
+        <ul class="nav-links">
+            <li><a href="#features">Features</a></li>
+            <li><a href="#editor">Editor</a></li>
+            <li><a href="#templates">Templates</a></li>
+            <li><a href="#brandkit">Brand Kit</a></li>
+            <li><a href="#collab">Collaborate</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+        </ul>
+        <button class="nav-cta">Start Designing</button>
     </nav>
 
+    <!-- Hero -->
     <section class="hero">
-        <div class="container">
-            <div class="free-badge">FREE FOREVER • NO CREDIT CARD</div>
-            <h1>Design Like a Pro<br><span class="gradient-text">Without Paying Like One</span></h1>
-            <p>Create stunning graphics, presentations, social media posts, and more. All the power of Canva Pro, completely free.</p>
-            <div style="display: flex; gap: var(--space-md); justify-content: center; margin-top: var(--space-xl);">
-                <a href="#editor" class="btn btn-primary" style="font-size: 20px; padding: var(--space-md) var(--space-2xl);">Start Designing Free →</a>
+        <div class="grid-bg"></div>
+        <span class="hero-badge">Visual Design for Everyone</span>
+        <h1><span class="gradient-text">Design Without</span><br>Design School.</h1>
+        <p class="hero-subtitle">Canvas Studio is a visual editor that makes professional design accessible to everyone. Templates, brand kits, collaborative editing, and export to every format &mdash; no degree required.</p>
+        <div class="hero-actions">
+            <button class="btn-primary">Start Free</button>
+            <button class="btn-secondary">See Templates</button>
+        </div>
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <div class="stat-value gradient-text">500+</div>
+                <div class="stat-label">Templates</div>
             </div>
-            <p style="font-size: 14px; margin-top: var(--space-md); color: rgba(255,255,255,0.5);">No signup required • No watermarks • No limits</p>
+            <div class="hero-stat">
+                <div class="stat-value gradient-text">PNG/SVG/PDF</div>
+                <div class="stat-label">Export Formats</div>
+            </div>
+            <div class="hero-stat">
+                <div class="stat-value gradient-text">Real-time</div>
+                <div class="stat-label">Collaboration</div>
+            </div>
+            <div class="hero-stat">
+                <div class="stat-value gradient-text">&lt;50ms</div>
+                <div class="stat-label">Render Time</div>
+            </div>
         </div>
     </section>
 
-    <section id="editor" class="container">
-        <h2 style="text-align: center; font-size: 48px; margin-bottom: var(--space-xl);">Powerful Editor, Simple Interface</h2>
-        <div class="canvas-demo">
-            <div class="canvas-sidebar">
-                <div class="tool-category">
-                    <h3>📁 Templates</h3>
-                    <button class="tool-btn">Social Media</button>
-                    <button class="tool-btn">Presentations</button>
-                    <button class="tool-btn">Posters</button>
-                    <button class="tool-btn">Flyers</button>
-                    <button class="tool-btn">Business Cards</button>
-                </div>
+    <hr class="gradient-line">
 
-                <div class="tool-category">
-                    <h3>🎨 Elements</h3>
-                    <button class="tool-btn">Text</button>
-                    <button class="tool-btn">Shapes</button>
-                    <button class="tool-btn">Images</button>
-                    <button class="tool-btn">Icons</button>
-                    <button class="tool-btn">Backgrounds</button>
-                </div>
-
-                <div class="tool-category">
-                    <h3>✨ Effects</h3>
-                    <button class="tool-btn">Filters</button>
-                    <button class="tool-btn">Blur</button>
-                    <button class="tool-btn">Shadows</button>
-                    <button class="tool-btn">Animations</button>
-                </div>
+    <!-- Core Features -->
+    <section id="features">
+        <div class="section-label">Core Features</div>
+        <h2 class="section-title">Everything You Need to <span class="gradient-text">Create</span></h2>
+        <p class="section-desc">A complete visual design toolkit built for speed. No bloat, no unnecessary complexity, no subscription traps. Just the tools you need to make things that look great.</p>
+        <div class="card-grid">
+            <div class="card">
+                <div class="card-icon">&#x1F3A8;</div>
+                <h3>Visual Editor</h3>
+                <p>Drag-and-drop canvas with precision controls. Snap-to-grid, alignment guides, keyboard shortcuts, and a property panel for pixel-perfect adjustments. Works in every modern browser.</p>
             </div>
+            <div class="card">
+                <div class="card-icon">&#x1F4C4;</div>
+                <h3>500+ Templates</h3>
+                <p>Professional templates for social media, presentations, documents, marketing materials, business cards, and more. Every template is fully customizable and brand-kit aware.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">&#x1F3AD;</div>
+                <h3>Brand Kit</h3>
+                <p>Define your brand colors, fonts, logos, and design tokens once. Apply them across every project automatically. Consistency without effort. Export brand guidelines as PDF.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">&#x1F4E4;</div>
+                <h3>Multi-Format Export</h3>
+                <p>Export to PNG, SVG, PDF, JPEG, and WebP. Control resolution, compression, and color space. Batch export for multi-page documents. Print-ready output at 300 DPI.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">&#x1F465;</div>
+                <h3>Collaborative Editing</h3>
+                <p>Work together in real time. See cursors, selections, and changes as they happen. Comments, version history, and conflict-free editing powered by CRDTs.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">&#x1F4F1;</div>
+                <h3>Responsive Resize</h3>
+                <p>Design once, resize everywhere. Automatically adapt designs for Instagram, Twitter, LinkedIn, Facebook, print, and custom dimensions. Smart content reflow keeps layouts intact.</p>
+            </div>
+        </div>
+    </section>
 
-            <div class="canvas-workspace">
-                <div class="canvas-artboard">
-                    <div style="text-align: center;">
-                        <div style="font-size: 48px; margin-bottom: 16px;">🎨</div>
-                        <div>Your canvas awaits</div>
-                        <div style="font-size: 14px; color: rgba(0,0,0,0.5); margin-top: 8px;">Start with a template or create from scratch</div>
+    <hr class="gradient-line">
+
+    <!-- Editor Preview -->
+    <section id="editor">
+        <div class="section-label">The Editor</div>
+        <h2 class="section-title">Professional Tools, <span class="gradient-text">Zero Learning Curve</span></h2>
+        <p class="section-desc">A full-featured design editor that loads in under 2 seconds. Layers, typography, shapes, images, grids, and effects &mdash; all accessible from an intuitive interface.</p>
+        <div class="editor-preview">
+            <div class="editor-toolbar">
+                <span class="toolbar-btn active">Select</span>
+                <span class="toolbar-btn">Text</span>
+                <span class="toolbar-btn">Shape</span>
+                <span class="toolbar-btn">Image</span>
+                <span class="toolbar-btn">Line</span>
+                <span class="toolbar-btn">Frame</span>
+                <span class="toolbar-btn">Grid</span>
+                <span class="toolbar-btn">Effects</span>
+                <span class="toolbar-btn">Comment</span>
+            </div>
+            <div class="editor-canvas">
+                <div class="editor-sidebar">
+                    <div class="sidebar-section">
+                        <div class="sidebar-title">Layers</div>
+                        <div class="layer-item selected">&#x25A0; Hero Section</div>
+                        <div class="layer-item">&nbsp;&nbsp;T Headline Text</div>
+                        <div class="layer-item">&nbsp;&nbsp;T Subtitle Text</div>
+                        <div class="layer-item">&nbsp;&nbsp;&#x25CF; CTA Button</div>
+                        <div class="layer-item">&#x25A0; Features Grid</div>
+                        <div class="layer-item">&nbsp;&nbsp;&#x25A0; Card 1</div>
+                        <div class="layer-item">&nbsp;&nbsp;&#x25A0; Card 2</div>
+                        <div class="layer-item">&nbsp;&nbsp;&#x25A0; Card 3</div>
+                        <div class="layer-item">&#x25A0; Footer</div>
+                        <div class="layer-item">&nbsp;&nbsp;&#x25A0; Logo</div>
+                        <div class="layer-item">&nbsp;&nbsp;T Copyright</div>
+                    </div>
+                    <div class="sidebar-section">
+                        <div class="sidebar-title">Assets</div>
+                        <div class="layer-item">&#x1F4C1; Brand Kit</div>
+                        <div class="layer-item">&#x1F4C1; Uploads</div>
+                        <div class="layer-item">&#x1F4C1; Stock Photos</div>
+                    </div>
+                </div>
+                <div class="editor-main">
+                    <div class="canvas-area">Your Design Here</div>
+                </div>
+                <div class="editor-properties">
+                    <div class="prop-group">
+                        <div class="prop-label">Position</div>
+                        <div class="prop-row">
+                            <input type="text" class="prop-input" value="X: 120" readonly>
+                            <input type="text" class="prop-input" value="Y: 80" readonly>
+                        </div>
+                        <div class="prop-row">
+                            <input type="text" class="prop-input" value="W: 760" readonly>
+                            <input type="text" class="prop-input" value="H: 420" readonly>
+                        </div>
+                    </div>
+                    <div class="prop-group">
+                        <div class="prop-label">Fill</div>
+                        <div class="color-swatches">
+                            <div class="swatch" style="background:#FF6B2B"></div>
+                            <div class="swatch" style="background:#FF2255"></div>
+                            <div class="swatch" style="background:#CC00AA"></div>
+                            <div class="swatch" style="background:#8844FF"></div>
+                            <div class="swatch" style="background:#4488FF"></div>
+                            <div class="swatch" style="background:#00D4FF"></div>
+                            <div class="swatch" style="background:#fff"></div>
+                            <div class="swatch" style="background:#000;border-color:#333"></div>
+                        </div>
+                    </div>
+                    <div class="prop-group">
+                        <div class="prop-label">Typography</div>
+                        <input type="text" class="prop-input" value="Space Grotesk" readonly>
+                        <div class="prop-row">
+                            <input type="text" class="prop-input" value="Bold" readonly>
+                            <input type="text" class="prop-input" value="48px" readonly>
+                        </div>
+                    </div>
+                    <div class="prop-group">
+                        <div class="prop-label">Opacity</div>
+                        <input type="text" class="prop-input" value="100%" readonly>
+                    </div>
+                    <div class="prop-group">
+                        <div class="prop-label">Border Radius</div>
+                        <input type="text" class="prop-input" value="12px" readonly>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="container">
-        <h2 style="text-align: center; font-size: 48px; margin-bottom: var(--space-xl);">1000+ Professional Templates</h2>
-        <div class="templates-grid">
+    <hr class="gradient-line">
+
+    <!-- Templates -->
+    <section id="templates">
+        <div class="section-label">Template Library</div>
+        <h2 class="section-title">Start With a Template, <span class="gradient-text">Make It Yours</span></h2>
+        <p class="section-desc">500+ professionally designed templates across 12 categories. Every template respects your brand kit and adapts to your content.</p>
+        <div class="template-grid">
             <div class="template-card">
-                <div class="template-preview">📱</div>
+                <div class="template-preview" style="background:linear-gradient(135deg,#FF6B2B,#FF2255)">&#x1F4F1;</div>
                 <div class="template-info">
-                    <h3>Instagram Post</h3>
-                    <p>1080×1080px • Perfect for feed posts</p>
+                    <h4>Social Media</h4>
+                    <p>Instagram, Twitter, LinkedIn, TikTok covers and posts</p>
                 </div>
             </div>
-
             <div class="template-card">
-                <div class="template-preview">🎭</div>
+                <div class="template-preview" style="background:linear-gradient(135deg,#CC00AA,#8844FF)">&#x1F4CA;</div>
                 <div class="template-info">
-                    <h3>Instagram Story</h3>
-                    <p>1080×1920px • Swipe-worthy stories</p>
+                    <h4>Presentations</h4>
+                    <p>Pitch decks, keynotes, and conference slides</p>
                 </div>
             </div>
-
             <div class="template-card">
-                <div class="template-preview">🎬</div>
+                <div class="template-preview" style="background:linear-gradient(135deg,#4488FF,#00D4FF)">&#x1F4E7;</div>
                 <div class="template-info">
-                    <h3>YouTube Thumbnail</h3>
-                    <p>1280×720px • Click-worthy covers</p>
+                    <h4>Email Headers</h4>
+                    <p>Newsletter banners, announcement graphics</p>
                 </div>
             </div>
-
             <div class="template-card">
-                <div class="template-preview">📊</div>
+                <div class="template-preview" style="background:linear-gradient(135deg,#FF2255,#CC00AA)">&#x1F4C7;</div>
                 <div class="template-info">
-                    <h3>Presentation</h3>
-                    <p>1920×1080px • Pitch decks & slides</p>
+                    <h4>Business Cards</h4>
+                    <p>Standard, vertical, and folded card layouts</p>
                 </div>
             </div>
-
             <div class="template-card">
-                <div class="template-preview">📄</div>
+                <div class="template-preview" style="background:linear-gradient(135deg,#8844FF,#4488FF)">&#x1F4DD;</div>
                 <div class="template-info">
-                    <h3>Flyer</h3>
-                    <p>8.5×11in • Print-ready designs</p>
+                    <h4>Documents</h4>
+                    <p>Letterheads, invoices, proposals, and reports</p>
                 </div>
             </div>
-
             <div class="template-card">
-                <div class="template-preview">💳</div>
+                <div class="template-preview" style="background:linear-gradient(135deg,#FF6B2B,#CC00AA)">&#x1F3AC;</div>
                 <div class="template-info">
-                    <h3>Business Card</h3>
-                    <p>3.5×2in • Professional cards</p>
+                    <h4>Video Thumbnails</h4>
+                    <p>YouTube, Vimeo, and course platform thumbnails</p>
+                </div>
+            </div>
+            <div class="template-card">
+                <div class="template-preview" style="background:linear-gradient(135deg,#00D4FF,#8844FF)">&#x1F6CD;</div>
+                <div class="template-info">
+                    <h4>Product Mockups</h4>
+                    <p>Device frames, packaging, and merchandise</p>
+                </div>
+            </div>
+            <div class="template-card">
+                <div class="template-preview" style="background:linear-gradient(135deg,#FF2255,#FF6B2B)">&#x1F389;</div>
+                <div class="template-info">
+                    <h4>Event Graphics</h4>
+                    <p>Invitations, posters, and event banners</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="container">
-        <h2 style="text-align: center; font-size: 48px; margin-bottom: var(--space-xl);">Everything You Need</h2>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">🎨</div>
-                <h3>Drag & Drop Editor</h3>
-                <p>Intuitive interface that anyone can use. No design experience needed.</p>
-            </div>
+    <hr class="gradient-line">
 
-            <div class="feature-card">
-                <div class="feature-icon">📚</div>
-                <h3>10K+ Templates</h3>
-                <p>Every template free. Social media, presentations, marketing materials, and more.</p>
+    <!-- Export -->
+    <section id="export">
+        <div class="section-label">Export</div>
+        <h2 class="section-title">Export to <span class="gradient-text">Every Format</span></h2>
+        <p class="section-desc">From web-optimized PNG to print-ready PDF, Canvas Studio exports exactly what you need at the quality you expect.</p>
+        <div class="export-grid">
+            <div class="export-card">
+                <div class="export-format gradient-text">PNG</div>
+                <p>Lossless raster with transparency. 1x, 2x, 3x, or custom resolution. Perfect for web and social.</p>
             </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">🖼️</div>
-                <h3>Millions of Images</h3>
-                <p>Free stock photos, illustrations, and icons. All copyright-free.</p>
+            <div class="export-card">
+                <div class="export-format gradient-text">SVG</div>
+                <p>Scalable vector graphics. Resolution-independent. Editable in any vector tool. Ideal for logos and icons.</p>
             </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">✨</div>
-                <h3>AI-Powered Tools</h3>
-                <p>Background remover, auto-enhance, smart resize, and more.</p>
+            <div class="export-card">
+                <div class="export-format gradient-text">PDF</div>
+                <p>Print-ready at 300 DPI. CMYK color space support. Bleed and crop marks. Multi-page documents.</p>
             </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">👥</div>
-                <h3>Team Collaboration</h3>
-                <p>Work together in real-time. Comments, sharing, and version history.</p>
+            <div class="export-card">
+                <div class="export-format gradient-text">JPEG</div>
+                <p>Compressed raster with adjustable quality. 70-100% quality slider. Best for photography-heavy designs.</p>
             </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">💾</div>
-                <h3>Cloud Storage</h3>
-                <p>Access your designs anywhere. Auto-save every change.</p>
+            <div class="export-card">
+                <div class="export-format gradient-text">WebP</div>
+                <p>Next-gen web format. 30% smaller than PNG. Transparency support. Fastest page load times.</p>
+            </div>
+            <div class="export-card">
+                <div class="export-format gradient-text">GIF</div>
+                <p>Animated exports for simple motion graphics. Up to 60 frames. Optimized color palettes.</p>
             </div>
         </div>
     </section>
 
-    <section class="container">
-        <div class="comparison-table">
-            <h2>Why Choose FastLane?</h2>
-            <div class="comparison-grid">
-                <div class="comparison-col">
-                    <h3>Canva Pro</h3>
-                    <div class="price">$12.99/mo</div>
-                    <ul>
-                        <li class="yes">Templates</li>
-                        <li class="yes">Stock images</li>
-                        <li class="yes">Team features</li>
-                        <li class="no">Limited storage</li>
-                        <li class="no">Watermarks on free</li>
-                        <li class="no">Expensive</li>
-                    </ul>
-                </div>
+    <hr class="gradient-line">
 
-                <div class="comparison-col">
-                    <h3>Adobe Creative</h3>
-                    <div class="price">$54.99/mo</div>
-                    <ul>
-                        <li class="yes">Professional tools</li>
-                        <li class="yes">Advanced features</li>
-                        <li class="no">Steep learning curve</li>
-                        <li class="no">Very expensive</li>
-                        <li class="no">Complex interface</li>
-                        <li class="no">Desktop only</li>
-                    </ul>
+    <!-- Brand Kit -->
+    <section id="brandkit">
+        <div class="section-label">Brand Kit</div>
+        <h2 class="section-title">Your Brand, <span class="gradient-text">Everywhere</span></h2>
+        <p class="section-desc">Define your brand once. Colors, fonts, logos, and design tokens apply automatically across every project and template.</p>
+        <div class="brandkit-demo">
+            <div class="brandkit-panel">
+                <h3>Color Palette</h3>
+                <div class="color-palette">
+                    <div>
+                        <div class="palette-chip" style="background:#FF6B2B"></div>
+                        <div class="palette-chip-label">#FF6B2B</div>
+                    </div>
+                    <div>
+                        <div class="palette-chip" style="background:#FF2255"></div>
+                        <div class="palette-chip-label">#FF2255</div>
+                    </div>
+                    <div>
+                        <div class="palette-chip" style="background:#CC00AA"></div>
+                        <div class="palette-chip-label">#CC00AA</div>
+                    </div>
+                    <div>
+                        <div class="palette-chip" style="background:#8844FF"></div>
+                        <div class="palette-chip-label">#8844FF</div>
+                    </div>
+                    <div>
+                        <div class="palette-chip" style="background:#4488FF"></div>
+                        <div class="palette-chip-label">#4488FF</div>
+                    </div>
+                    <div>
+                        <div class="palette-chip" style="background:#00D4FF"></div>
+                        <div class="palette-chip-label">#00D4FF</div>
+                    </div>
                 </div>
-
-                <div class="comparison-col highlight">
-                    <h3>FastLane ✨</h3>
-                    <div class="price">FREE</div>
-                    <ul>
-                        <li class="yes">10K+ templates</li>
-                        <li class="yes">Millions of images</li>
-                        <li class="yes">Team collaboration</li>
-                        <li class="yes">Unlimited storage</li>
-                        <li class="yes">No watermarks</li>
-                        <li class="yes">AI-powered tools</li>
-                        <li class="yes">No signup needed</li>
-                    </ul>
+                <h3>Typography</h3>
+                <div class="font-sample">
+                    <div class="font-name">Heading — Space Grotesk</div>
+                    <div class="font-preview">The quick brown fox</div>
                 </div>
+                <div class="font-sample">
+                    <div class="font-name">Code — JetBrains Mono</div>
+                    <div class="font-preview font-preview-mono">const design = true;</div>
+                </div>
+            </div>
+            <div class="brandkit-panel">
+                <h3>Brand Kit Features</h3>
+                <ul style="list-style:none;display:flex;flex-direction:column;gap:1rem;margin-top:0.5rem;">
+                    <li style="display:flex;gap:0.75rem;align-items:flex-start;">
+                        <span style="color:#27c93f;font-family:var(--font-mono);font-weight:700;">+</span>
+                        <div>
+                            <strong>Color Systems</strong>
+                            <p style="font-size:0.85rem;color:var(--text-muted)">Primary, secondary, accent, and neutral palettes. Auto-generate complementary and accessible color pairs.</p>
+                        </div>
+                    </li>
+                    <li style="display:flex;gap:0.75rem;align-items:flex-start;">
+                        <span style="color:#27c93f;font-family:var(--font-mono);font-weight:700;">+</span>
+                        <div>
+                            <strong>Font Stacks</strong>
+                            <p style="font-size:0.85rem;color:var(--text-muted)">Heading, body, and monospace font assignments with fallback stacks. Google Fonts and custom font upload.</p>
+                        </div>
+                    </li>
+                    <li style="display:flex;gap:0.75rem;align-items:flex-start;">
+                        <span style="color:#27c93f;font-family:var(--font-mono);font-weight:700;">+</span>
+                        <div>
+                            <strong>Logo Variants</strong>
+                            <p style="font-size:0.85rem;color:var(--text-muted)">Full logo, icon mark, wordmark, and mono versions. Auto-insert the right variant based on context and background.</p>
+                        </div>
+                    </li>
+                    <li style="display:flex;gap:0.75rem;align-items:flex-start;">
+                        <span style="color:#27c93f;font-family:var(--font-mono);font-weight:700;">+</span>
+                        <div>
+                            <strong>Design Tokens</strong>
+                            <p style="font-size:0.85rem;color:var(--text-muted)">Spacing, border radius, shadow, and opacity tokens. Change once, update everywhere across all projects.</p>
+                        </div>
+                    </li>
+                    <li style="display:flex;gap:0.75rem;align-items:flex-start;">
+                        <span style="color:#27c93f;font-family:var(--font-mono);font-weight:700;">+</span>
+                        <div>
+                            <strong>Brand Guidelines Export</strong>
+                            <p style="font-size:0.85rem;color:var(--text-muted)">Auto-generate a brand guidelines PDF with all colors, fonts, logos, and usage rules. Share with anyone.</p>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
     </section>
 
-    <section class="container">
-        <div class="cta-section">
-            <h2>Start Creating Today</h2>
-            <p>Join millions of creators who choose FastLane</p>
-            <a href="#editor" class="btn btn-primary" style="font-size: 24px; padding: var(--space-lg) var(--space-2xl);">Start Designing Free →</a>
-            <p style="font-size: 14px; margin-top: var(--space-md); color: rgba(255,255,255,0.5);">Free forever • No credit card • No watermarks</p>
+    <hr class="gradient-line">
+
+    <!-- Collaboration -->
+    <section id="collab">
+        <div class="section-label">Collaboration</div>
+        <h2 class="section-title">Design Together, <span class="gradient-text">Ship Faster</span></h2>
+        <p class="section-desc">Real-time collaborative editing powered by CRDTs. No conflicts, no lost work, no waiting for someone to finish.</p>
+        <div class="collab-features">
+            <div class="collab-card">
+                <div class="collab-step gradient-text">01</div>
+                <h3>Real-Time Cursors</h3>
+                <p>See every collaborator's cursor, selection, and active tool in real time. Color-coded by team member. No latency, no lag.</p>
+            </div>
+            <div class="collab-card">
+                <div class="collab-step gradient-text">02</div>
+                <h3>Comments & Threads</h3>
+                <p>Drop comments on any element. Start threads, mention teammates, resolve discussions. Every comment is linked to its design context.</p>
+            </div>
+            <div class="collab-card">
+                <div class="collab-step gradient-text">03</div>
+                <h3>Version History</h3>
+                <p>Every change is saved automatically. Browse the full history, compare versions side-by-side, and restore any previous state with one click.</p>
+            </div>
         </div>
     </section>
 
+    <hr class="gradient-line">
+
+    <!-- Workflow -->
+    <section>
+        <div class="section-label">Workflow</div>
+        <h2 class="section-title" style="text-align:center;">From Blank Canvas to <span class="gradient-text">Published Design</span></h2>
+        <div class="workflow-steps">
+            <div class="workflow-step">
+                <div class="workflow-num gradient-text">1</div>
+                <h4>Choose Template</h4>
+                <p>Pick from 500+ templates or start from scratch</p>
+            </div>
+            <div class="workflow-step">
+                <div class="workflow-num gradient-text">2</div>
+                <h4>Apply Brand Kit</h4>
+                <p>Your colors, fonts, and logos auto-populate</p>
+            </div>
+            <div class="workflow-step">
+                <div class="workflow-num gradient-text">3</div>
+                <h4>Edit & Collaborate</h4>
+                <p>Drag, drop, type, and refine with your team</p>
+            </div>
+            <div class="workflow-step">
+                <div class="workflow-num gradient-text">4</div>
+                <h4>Export & Ship</h4>
+                <p>PNG, SVG, PDF &mdash; download or share a link</p>
+            </div>
+        </div>
+    </section>
+
+    <hr class="gradient-line">
+
+    <!-- Pricing -->
+    <section id="pricing">
+        <div class="section-label">Pricing</div>
+        <h2 class="section-title" style="text-align:center;">Simple, <span class="gradient-text">Honest Pricing</span></h2>
+        <p class="section-desc" style="text-align:center;margin:0 auto 3rem;">No surprise charges. No feature gates behind enterprise sales calls. Pick a plan and start designing.</p>
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <div class="pricing-tier">Free</div>
+                <div class="pricing-price">$0</div>
+                <div class="pricing-period">Forever free for personal projects</div>
+                <ul class="pricing-features">
+                    <li>3 active projects</li>
+                    <li>100 templates</li>
+                    <li>PNG and JPEG export</li>
+                    <li>1 brand kit</li>
+                    <li>Community support</li>
+                </ul>
+                <button class="pricing-btn pricing-btn-secondary">Start Free</button>
+            </div>
+            <div class="pricing-card featured">
+                <div class="pricing-tier">Creator</div>
+                <div class="pricing-price">$29<span style="font-size:1rem;font-weight:400">/mo</span></div>
+                <div class="pricing-period">For freelancers and content creators</div>
+                <ul class="pricing-features">
+                    <li>Unlimited projects</li>
+                    <li>500+ templates</li>
+                    <li>PNG, SVG, PDF, WebP export</li>
+                    <li>5 brand kits</li>
+                    <li>Real-time collaboration (3 seats)</li>
+                    <li>Version history (30 days)</li>
+                    <li>Custom fonts upload</li>
+                    <li>Priority support</li>
+                </ul>
+                <button class="pricing-btn pricing-btn-primary">Get Creator</button>
+            </div>
+            <div class="pricing-card">
+                <div class="pricing-tier">Team</div>
+                <div class="pricing-price">$99<span style="font-size:1rem;font-weight:400">/mo</span></div>
+                <div class="pricing-period">For teams and organizations</div>
+                <ul class="pricing-features">
+                    <li>Everything in Creator</li>
+                    <li>Unlimited brand kits</li>
+                    <li>Unlimited collaboration seats</li>
+                    <li>Version history (unlimited)</li>
+                    <li>Custom templates</li>
+                    <li>Admin dashboard</li>
+                    <li>SSO / SAML</li>
+                    <li>Dedicated support</li>
+                </ul>
+                <button class="pricing-btn pricing-btn-secondary">Get Team</button>
+            </div>
+        </div>
+    </section>
+
+    <hr class="gradient-line">
+
+    <!-- Testimonials -->
+    <section>
+        <div class="section-label">What People Say</div>
+        <h2 class="section-title" style="text-align:center;">Trusted by <span class="gradient-text">Creators Everywhere</span></h2>
+        <div class="testimonial-grid" style="margin-top:2rem;">
+            <div class="testimonial-card">
+                <p class="testimonial-text">"I replaced three different design tools with Canvas Studio. The brand kit alone saves me hours every week. Everything stays consistent without me having to think about it."</p>
+                <div class="testimonial-author">Sarah M.</div>
+                <div class="testimonial-role">Freelance Designer</div>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text">"Our marketing team went from requesting designs to making their own. The template library is genuinely good, and the collaborative editing means we iterate in minutes instead of days."</p>
+                <div class="testimonial-author">James K.</div>
+                <div class="testimonial-role">Marketing Director</div>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text">"The export quality is what sold me. Print-ready PDFs with proper bleed marks, SVGs that actually work in production code, and PNGs at any resolution. Finally, a design tool that respects output."</p>
+                <div class="testimonial-author">Priya R.</div>
+                <div class="testimonial-role">Frontend Engineer</div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="gradient-line">
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <h2><span class="gradient-text">Start Designing Today</span></h2>
+        <p>No credit card required. No time limits. Create your first design in under 60 seconds.</p>
+        <div class="hero-actions" style="justify-content:center;">
+            <button class="btn-primary">Start Free</button>
+            <button class="btn-secondary">See Templates</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
-        <div class="container">
-            <p>&copy; 2026 BlackRoad Studio, Inc. All rights reserved.</p>
-            <p style="margin-top: var(--space-sm);">Design for everyone, by everyone.</p>
+        <div class="footer-grid">
+            <div>
+                <div class="footer-brand"><span class="gradient-text">Canvas Studio</span></div>
+                <p class="footer-brand-desc">Visual design tools by BlackRoad OS, Inc. Templates, brand kits, collaborative editing, and multi-format export. Design without design school.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Product</h4>
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#templates">Templates</a></li>
+                    <li><a href="#brandkit">Brand Kit</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#">Documentation</a></li>
+                    <li><a href="#">Tutorials</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Changelog</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="https://blackroad.io">BlackRoad OS</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Status</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2026 BlackRoad OS, Inc. All rights reserved.</span>
+            <div class="footer-bottom-links">
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+                <a href="#">Security</a>
+            </div>
         </div>
     </footer>
-
-    <script>
-        // Simple interactivity
-        document.querySelectorAll('.tool-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                alert('FastLane editor coming soon! Contact blackroad.systems@gmail.com for early access.');
-            });
-        });
-
-        document.querySelectorAll('.template-card').forEach(card => {
-            card.addEventListener('click', () => {
-                alert('Template editor coming soon! Contact blackroad.systems@gmail.com for early access.');
-            });
-        });
-    </script>
 </body>
 </html>
